@@ -1,4 +1,12 @@
-#include <OpenGL/gl3.h>
+// https://github.com/ianthehenry/bauble/issues/18#issuecomment-2764265693
+// from https://github.com/raysan5/raylib/blob/master/examples/others/raylib_opengl_interop.c
+#if defined(__APPLE__)
+    #define GL_SILENCE_DEPRECATION // Silence Opengl API deprecation warnings
+    #include <OpenGL/gl3.h>     // OpenGL 3 library for OSX
+    #include <OpenGL/gl3ext.h>  // OpenGL 3 extensions library for OSX
+#else
+    #include <external/glad.h>       // Required for: OpenGL functionality
+#endif
 
 static Janet cfun_DrawPixel(int32_t argc, Janet *argv) {
     janet_fixarity(argc, 3);
